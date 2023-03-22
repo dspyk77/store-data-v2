@@ -48,63 +48,55 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container-md">
 
     <section class="mb-4">
       <div class="bg-light p-5 rounded my-4 d-flex justify-content-center">
         <span class=" fw-bold fs-3">Enter the product name, price, weight and catagory below:</span>
       </div>
-      <!-- test seperating the labels and inputs into seperate divs for spacing -->
-      <div class="d-flex flex-column flex-lg-row justify-content-evenly mb-4">
-        <div class="row-cols-1">
-          <div>
+
+      <div class="container m-2 pb-4">
+        <div class="row">
+          <div class="col justify-content-center">
             <label for="name-input">Name:</label>
             <div>
-              <input type="text" name="name" id="name-input" placeholder="Apple">
+              <input type="text" name="name" min="0" class="form-control-sm" id="name-input" placeholder="Apple">
             </div>
           </div>
-        </div>
-
-        <div class="row-cols-1">
-          <div>
+          <div class="col">
             <label for="price-input">Price:</label>
             <div>
-              <span>$<input type="text" id="price-input" placeholder="1.50"></span>
+              <span>$<input type="number" min="0" class="form-control-sm" id="price-input" placeholder="1.50"></span>
             </div>
           </div>
-        </div>
-
-        <div class="row-cols-1">
-          <div>
+          <div class="col">
             <label for="weight-input">Weight:</label>
             <div>
-              <input type="text" id="weight-input" placeholder="0.5">
+              <input type="number" min="0" class="form-control-sm" id="weight-input" placeholder="0.5">
             </div>
           </div>
-        </div>
-
-        <div class="row-cols-1">
-          <div>
+          <div class="col">
             <label for="category-input">Category:</label>
             <div>
-              <input type="text" id="category-input" placeholder="Produce">
+              <input type="text" class="form-control-sm" id="category-input" placeholder="Produce">
             </div>
           </div>
         </div>
-
       </div>
       <button id="add-item-btn" class="btn btn-sm btn-primary">Add Product</button>
     </section>
 
-    <section id="show-table-section">
-      <!-- for showTable() -->
+    <section>
+      <div id="display-index-item">
+        <!-- for showTable() -->
+      </div>
     </section>
 
-    <section id="index-table-section" hidden>
+    <section id="display-table" hidden class="mb-5 pb-4">
       <div>
         <label for="show-item">Select specific item</label><br>
-        <input class="num-input" type="number" min="0" id="show-item-btn">
-        <button onclick="showTable()">Show Item</button>
+        <input class="form-control-sm" id="display-item-input" type="number" min="1">
+        <button class="btn btn-sm btn-primary" id="show-item-btn">Show Item</button>
       </div>
       <table class="table">
         <thead>
@@ -116,14 +108,14 @@
             <th scope="col">Weight</th>
           </tr>
         </thead>
-        <tbody id="index-table">
+        <tbody id="display-item-value">
           <!-- input values -->
         </tbody>
       </table>
       <div>
         <label for="del-card">Need to delete one?</label><br>
-        <input class="num-input" type="number" min="0" id="del-item-btn">
-        <button onclick="deleteProduct()">Delete Item</button>
+        <input class="form-control-sm" id="del-item-input" type="number" min="1">
+        <button class="btn btn-sm btn-primary" id="del-item-btn">Delete Item</button>
       </div>
     </section>
 

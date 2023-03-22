@@ -22,18 +22,14 @@ class App {
     this.priceInput = document.querySelector("#price-input");
     this.weightInput = document.querySelector("#weight-input");
     this.categoryInput = document.querySelector("#category-input");
-    this.displayIndexTable = document.querySelector("#index-table");
+    this.displayItemValue = document.querySelector("#display-item-value");
     this.displayShowTable = document.querySelector("#show-item");
-
-    this.showTableId = document.querySelector("#show-table-id");
-    this.showTableCategory = document.querySelector("#show-table-category");
-    this.showTablePrice = document.querySelector("#show-table-price");
-    this.showTableWeight = document.querySelector("#show-table-weight");
-    this.showTableName = document.querySelector("#show-table-name");
-    this.deleteIndex = document.querySelector("#del-item");
+    this.deleteIndex = document.querySelector("#del-item-input");
     this.displayErrorMsg = document.querySelector("#error-msg");
-    this.showTableSection = document.querySelector("#show-table-section");
-    this.indexTableSection = document.querySelector("#index-table-section");
+    this.displayTableDiv = document.querySelector("#display-table-div");
+    this.indexTable = document.querySelector("#display-index-table");
+    this.displayTable = document.querySelector("#display-table");
+    this.displayItemInput = document.querySelector("#display-item-input")
   }
 
   bindEvents() {
@@ -50,12 +46,11 @@ class App {
     });
 
     document.querySelector("#show-item-btn").addEventListener("click", () => {
-      this.showTable();
+      this.displayIndexItem();
     });
   }
 
   storeProduct() {
-
     console.log("storeProduct called");
 
     const product = new Product(
@@ -69,9 +64,9 @@ class App {
     console.log(this.products);
 
     if (this.products.length > 0) {
-      this.indexTableSection.hidden = false;
+      this.displayTable.hidden = false;
     } else {
-      this.indexTableSection.hidden = true;
+      this.displayTable.hidden = true;
     }
 
     this.clearIndexTable();
@@ -81,7 +76,7 @@ class App {
   }
 
   deleteProduct() {
-    const index = this.deleteIndex.value;
+    const index = (this.deleteIndex.value - 1);
     // if (index >= 0 && index < this.products.length) {
       this.products.splice(index, 1);
       console.log("Remaining products:");
@@ -95,14 +90,44 @@ class App {
     // }
   }
 
+  displayIndexItem() {
+    console.log("displayIndexItem() was called!")
+    const index = this.displayItemInput.value;
+    const selectedItem = this.products[(index - 1)];
+    this.displayItemInput.insertAdjacentHTML(
+      "beforeend",
+      `
+        <label class="fw-bold text-decoration-underline" for="table">Selected Item</label>
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Category:</th>
+              <th scope="col">Name:</th>
+              <th scope="col">Price:</th>
+              <th scope="col">Weight:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${selectedItem.category}</td>
+              <td>${selectedItem.name}</td>
+              <td>${"$"}${selectedItem.price}</td>
+              <td>${selectedItem.weight}</td>
+            </tr>
+          </tbody>
+        </table>
+      `
+    );
+  }
+
   renderProducts() {
     for (let i = 0; i < this.products.length; i++) {
       const product = this.products[i];
-      this.displayIndexTable.insertAdjacentHTML(
+      this.displayItemValue.insertAdjacentHTML(
         "beforeend",
         `
         <tr>
-          <td>${i}</td>
+          <td>${(i + 1)}</td>
           <td>${product.category}</td>
           <td>${product.name}</td>
           <td>${"$"}${product.price}</td>
@@ -114,7 +139,7 @@ class App {
   }
 
   clearIndexTable() {
-    this.displayIndexTable.innerHTML = "";
+    this.displayItemValue.innerHTML = "";
   }
   
   clearShowTableValue() {
@@ -131,6 +156,7 @@ class App {
     this.weightInput.innerHTML="";
     this.categoryInput.innerHTML="";
   }
+  
 }
 
 new App();
